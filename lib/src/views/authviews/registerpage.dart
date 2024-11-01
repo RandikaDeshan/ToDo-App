@@ -164,6 +164,7 @@ class RegisterPage extends StatelessWidget {
                     ],
                   ),
                   TextFormField(
+                    obscureText: true,
                     controller: _confirmPasswordController,
                     validator: (value) {
                       if (value!.isEmpty) {

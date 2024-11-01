@@ -89,11 +89,15 @@ class _EditTaskPageState extends State<EditTaskPage> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+
+                              // display the task title
                               Text(task.name,style: TextStyle(
                                   fontSize: 20.sp,
                                   fontWeight: FontWeight.w400,
                                   color:const Color.fromRGBO(255, 255, 255, 0.87)
                               ),),
+
+                              // display the date time
                               Text(DateFormat("MMM d EEEE At H.m").format(task.createdAt!),style: TextStyle(
                                   fontSize: 16.sp,
                                   fontWeight: FontWeight.w400,
@@ -105,6 +109,8 @@ class _EditTaskPageState extends State<EditTaskPage> {
                         ],
                       ),
                     ),
+
+                    //display date time
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 10.h),
                       child: Row(
@@ -138,6 +144,8 @@ class _EditTaskPageState extends State<EditTaskPage> {
                         ],
                       ),
                     ),
+
+                    //display category
                     Padding(
                       padding:EdgeInsets.symmetric(vertical: 10.h),
                       child: Row(
@@ -190,6 +198,8 @@ class _EditTaskPageState extends State<EditTaskPage> {
                         ],
                       ),
                     ),
+
+                    //display priority
                     Padding(
                       padding:EdgeInsets.symmetric(vertical: 10.h),
                       child: Row(
@@ -236,6 +246,8 @@ class _EditTaskPageState extends State<EditTaskPage> {
                         ],
                       ),
                     ),
+
+                    //display sub task text
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 10.h),
                       child: Row(
@@ -243,7 +255,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
                         children: [
                           Row(
                             children: [
-                              const Icon(Icons.share),
+                              const Icon(Icons.account_tree_outlined),
                               SizedBox(width: 10.w,),
                               Text("Sub - Task",style: TextStyle(
                                   fontSize: 16.sp,
@@ -269,6 +281,8 @@ class _EditTaskPageState extends State<EditTaskPage> {
                         ],
                       ),
                     ),
+
+                    // delete task
                     Padding(
                       padding: EdgeInsets.only(top: 10.h),
                       child: GestureDetector(

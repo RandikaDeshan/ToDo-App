@@ -5,7 +5,9 @@ import 'package:group_button/group_button.dart';
 import 'package:todo_app/src/models/taskmodel.dart';
 import 'package:todo_app/src/services/taskservice.dart';
 import 'package:todo_app/src/views/calenderpage.dart';
+import 'package:todo_app/src/views/focusepage.dart';
 import 'package:todo_app/src/views/homepage.dart';
+import 'package:todo_app/src/views/profilepage.dart';
 
 class BottomNavPage extends StatefulWidget {
   const BottomNavPage({super.key});
@@ -44,8 +46,8 @@ class _BottomNavPageState extends State<BottomNavPage> {
   final List<Widget> _pages = [
     const HomePage(),
     const CalenderPage(),
-    const HomePage(),
-    const CalenderPage(),
+    const FocusePage(),
+    const ProfilePage(),
   ];
   final PageStorageBucket bucket = PageStorageBucket();
 
@@ -140,7 +142,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
                     onPressed: (){
                       setState(() {
                         _currentIndex == 2;
-                        currentScreen = const HomePage();
+                        currentScreen = const FocusePage();
                       });
                     },
                     child: Column(
@@ -162,7 +164,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
                     onPressed: (){
                       setState(() {
                         _currentIndex == 3;
-                        currentScreen = const CalenderPage();
+                        currentScreen = const ProfilePage();
                       });
                     },
                     child: Column(
@@ -637,7 +639,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
                                 showDialog(context: context, builder: (context) {
                                   return Dialog(
                                     child: SizedBox(
-                                      height: 337.h,
+                                      height: 420.h,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Column(
@@ -699,7 +701,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
                                                   print("$priority");
                                                   Navigator.pop(context);
                                                 },style: TextButton.styleFrom(
-                                                    fixedSize: Size.fromWidth(143.w),
+                                                    fixedSize: Size.fromWidth(130.w),
                                                     backgroundColor:const Color.fromRGBO(134, 135, 231, 1),
                                                     shape: RoundedRectangleBorder(
                                                         borderRadius: BorderRadius.circular(4)

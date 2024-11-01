@@ -1,3 +1,7 @@
+
+
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,7 +10,6 @@ import 'package:intl/intl.dart';
 import 'package:todo_app/src/models/taskmodel.dart';
 import 'package:todo_app/src/services/authservice.dart';
 import 'package:todo_app/src/services/taskservice.dart';
-import 'package:todo_app/src/views/authviews/loginpage.dart';
 import 'package:todo_app/src/views/edittask.dart';
 
 import 'navbar/bottomnavpage.dart';
@@ -24,12 +27,22 @@ String cateColor = "";
 String cateImg = "";
 String name = "";
 
-
+String username ="";
+String image = '';
 
 class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+
+    AuthService().getUserDetails(user!.uid).then((value){
+      if(value![0] != ''){
+        setState(() {
+          username = value[0];
+          image = value[1];
+        });
+      }
+    });
     // TODO: implement initState
     priority = 0;
     category = "";
@@ -61,12 +74,23 @@ class _HomePageState extends State<HomePage> {
 
       appBar: AppBar(
         leading:const Icon(Icons.menu),
-        title:const Text("Index"),
+        title: Text(username),
         centerTitle: true,
-        actions: const[
-          CircleAvatar(
-            backgroundImage: NetworkImage("https://cdn.imgbin.com/15/10/13/imgbin-computer-icons-user-profile-avatar-profile-LJbrar10nYY8mYWt0CUXZ8CxE.jpg"),
-          )
+        actions: [
+          image.contains("http")?Padding(
+            padding: EdgeInsets.only(right: 10.w),
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(image),
+              backgroundColor: Colors.transparent,
+            ),
+          ):Padding(
+            padding: EdgeInsets.only(right: 10.w),
+            child: CircleAvatar(
+              backgroundImage:image != ""? FileImage(File(image)):const AssetImage("assets/images/profile.png"),
+              backgroundColor: Colors.transparent,
+            ),
+          ),
+
         ],
       ),
 
@@ -96,13 +120,6 @@ class _HomePageState extends State<HomePage> {
                   fontWeight: FontWeight.w400,
                   color:const Color.fromRGBO(255, 255, 255, 0.87)
               ),),
-              IconButton(onPressed: ()async{
-                await AuthService().signOut();
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return const LoginPage();
-                },));
-              }, icon: Icon(Icons.logout)),
-
             ],
           );
         }
@@ -606,7 +623,7 @@ class _HomePageState extends State<HomePage> {
                                             //dialog box for adding priority
                                             return Dialog(
                                               child: SizedBox(
-                                                height: 337.h,
+                                                height: 420.h,
                                                 child: Padding(
                                                   padding: const EdgeInsets.all(8.0),
                                                   child: Column(
@@ -668,7 +685,7 @@ class _HomePageState extends State<HomePage> {
                                                             print("$priority");
                                                             Navigator.pop(context);
                                                           },style: TextButton.styleFrom(
-                                                              fixedSize: Size.fromWidth(143.w),
+                                                              fixedSize: Size.fromWidth(130.w),
                                                             backgroundColor:const Color.fromRGBO(134, 135, 231, 1),
                                                             shape: RoundedRectangleBorder(
                                                               borderRadius: BorderRadius.circular(4)

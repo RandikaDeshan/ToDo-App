@@ -4,6 +4,8 @@ import 'package:todo_app/src/models/taskmodel.dart';
 class TaskService{
   final CollectionReference _reference = FirebaseFirestore.instance.collection("tasks");
 
+
+  // create a task and save task details in firestore
   Future<void> saveTask(TaskModel taskModel)async{
     try{
       final TaskModel task = TaskModel(
@@ -23,6 +25,8 @@ class TaskService{
     }
   }
 
+
+  // get the task list by user id
   Future<List<TaskModel>> getUserTasks(String userId)async{
     try{
       final tasks = await _reference.where('userId',isEqualTo: userId).get().then((snapshot){
@@ -37,16 +41,22 @@ class TaskService{
     }
   }
 
+
+  // update task
   Future<void> updateTask(TaskModel task)async{
     await _reference.doc(task.taskId).update(task.toJson());
   }
 
+
+  // get task by task id
   Future<TaskModel> getById(String taskId)async{
     return await _reference.doc(taskId).get().then((snapshot){
       return TaskModel.fromJson(snapshot.data() as Map<String,dynamic>);
     });
   }
 
+
+  // delete task
   Future<void> deleteTask(taskId)async{
     await _reference.doc(taskId).delete();
   }
